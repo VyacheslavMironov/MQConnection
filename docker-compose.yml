@@ -1,0 +1,20 @@
+version: '3.8'
+services:
+  app:
+    restart: always
+    build:
+      context: docker
+      dockerfile: python.Dockerfile
+    volumes:
+      - ./app:/var/www/app
+  brocker:
+    restart: always
+    hostname: rabbitmq
+    ports:
+    - 5672:5672
+    - 15672:15672
+    build:
+      context: docker
+      dockerfile: brocker.Dockerfile
+    env_file:
+      - config/mq/mq.env
